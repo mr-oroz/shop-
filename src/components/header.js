@@ -7,10 +7,10 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import categories from '../categories';
 
-function Header({ handleCategoryFilter, handleClikHome, handleClikDiscount }) {
+function Header({ handleCategoryFilter, handleClikHome, handleClikDiscount, handleSearch, input, setInput }) {
     return (
         <Navbar bg="light" expand="lg">
-            <Container fluid>
+            <Container >
                 <Navbar.Brand onClick={handleClikHome}>IT shop</Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
@@ -25,7 +25,7 @@ function Header({ handleCategoryFilter, handleClikHome, handleClikDiscount }) {
                             {
                                 categories.map(elem => (
                                     <Dropdown.Item
-                                        onClick={()=> handleCategoryFilter(elem.id)}
+                                        onClick={()=> handleCategoryFilter(elem.id, elem.title)}
                                         key={elem.id}>
                                         {elem.title}
                                     </Dropdown.Item>
@@ -35,12 +35,14 @@ function Header({ handleCategoryFilter, handleClikHome, handleClikDiscount }) {
                     </Nav>
                     <Form className="d-flex">
                         <Form.Control
-                            type="search"
+                            value={input}
+                            onChange={(e) => setInput(e.target.value)}
+                            type="text"
                             placeholder="Search"
                             className="me-2"
                             aria-label="Search"
                         />
-                        <Button variant="outline-success">Search</Button>
+                        <Button onClick={handleSearch} variant="outline-success">Search</Button>
                     </Form>
                 </Navbar.Collapse>
             </Container>
